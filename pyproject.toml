@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-blame"
-version = "0.1.2"
+version = "0.1.3"
 description = "A Python tool and a library for blaming Python code"
 authors = ["Roman Inflianskas <infroma@gmail.com>"]
 license = "Apache-2.0"

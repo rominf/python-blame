@@ -19,7 +19,7 @@ entry_points = \
 
 setup_kwargs = {
     'name': 'python-blame',
-    'version': '0.1.2',
+    'version': '0.1.3',
     'description': 'A Python tool and a library for blaming Python code',
     'long_description': None,
     'author': 'Roman Inflianskas',

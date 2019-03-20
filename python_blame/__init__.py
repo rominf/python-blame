@@ -4,10 +4,14 @@
 Currently supports only git and HEAD revision and blaming tests.
 
 Usage:
-    python-blame [<path>]...
+    python-blame [--stats] [<path>]...
+
+Options:
+    --stats  Output statistics (number of tests per author)
 """
 import os
 import sys
+import typing
 from collections import Counter
 from contextlib import suppress
 from enum import Enum
@@ -107,10 +111,18 @@ def blame(paths: List[Path], node_filter: NodeFilter) -> Dict[str, Dict[str, str
     return result
 
 
+def stats(paths: List[Path], node_filter: NodeFilter) -> typing.Counter[str]:
+    blame_output = blame(paths=paths, node_filter=node_filter)
+    return Counter([author for tests_blame_output in blame_output.values() for author in tests_blame_output.values()])
+
+
 def main() -> None:
     args = docopt(__doc__, version=poetry_version.extract(source_file=__file__))
     paths = [Path(path) for path in args.get('<path>', ['.'])]
-    result = blame(paths, TEST_NODE_FILTER)
+    if args['--stats']:
+        result = dict(stats(paths, TEST_NODE_FILTER))
+    else:
+        result = blame(paths, TEST_NODE_FILTER)
     yaml = YAML()
     yaml.dump(result, stream=sys.stdout)
 
