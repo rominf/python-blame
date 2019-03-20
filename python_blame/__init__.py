@@ -19,7 +19,7 @@ import poetry_version
 from docopt import docopt
 from pathlib import Path
 
-from plumbum import ProcessExecutionError
+from plumbum.commands.processes import ProcessExecutionError
 from ruamel.yaml import YAML
 
 
